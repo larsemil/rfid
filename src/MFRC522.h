@@ -18,6 +18,9 @@
 #include <Arduino.h>
 #include <SPI.h>
 
+
+
+
 #ifndef MFRC522_SPICLOCK
 #define MFRC522_SPICLOCK (4000000u)	// MFRC522 accept upto 10MHz, set to 4MHz.
 #endif
@@ -81,6 +84,8 @@ public:
 	static constexpr byte FIFO_SIZE = 64;		// The FIFO is 64 bytes.
 	// Default value for unused pin
 	static constexpr uint8_t UNUSED_PIN = UINT8_MAX;
+
+	SPIClass* _spi;
 
 	// MFRC522 registers. Described in chapter 9 of the datasheet.
 	// When using SPI all addresses are shifted one bit left in the "SPI address byte" (section 8.1.2.3)
@@ -271,7 +276,9 @@ public:
 	/////////////////////////////////////////////////////////////////////////////////////
 	MFRC522();
 	MFRC522(byte resetPowerDownPin);
-	MFRC522(byte chipSelectPin, byte resetPowerDownPin);
+	//MFRC522(byte chipSelectPin, byte resetPowerDownPin);
+	MFRC522(byte chipSelectPin, byte resetPowerDownPin, SPIClass* spi = &SPI);
+
 	
 	/////////////////////////////////////////////////////////////////////////////////////
 	// Basic interface functions for communicating with the MFRC522
